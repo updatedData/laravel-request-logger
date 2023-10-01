@@ -12,7 +12,6 @@ class DeleteOldLogsTest extends TestCase
 {
     public function testHandle(): void
     {
-        Queue::fake();
         $logs = RequestLog::factory(5)->create([
             'created_at' => now()->subDay(),
         ]);
@@ -21,8 +20,8 @@ class DeleteOldLogsTest extends TestCase
         $first->created_at = now()->addDay();
         $first->save();
         Config::set('request-logger.storage.retention', 1);
-        dispatch(new DeleteOldLogs());
-        Queue::assertPushed(DeleteOldLogs::class);
+        $deleteOldLogs = new DeleteOldLogs();
+        $deleteOldLogs->handle();
         $this->assertEquals(1, RequestLog::all()->count());
     }
 }

@@ -1,0 +1,37 @@
+{
+  "name": "updateddata/laravel-request-logger",
+  "description": "Logs Laravel HTTP Requests",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "UpdatedData\\LaravelRequestLogger\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "UpdatedData\\LaravelRequestLogger\\Tests\\": "tests",
+      "Database\\Factories\\": "database/factories/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "UpdatedData\\LaravelRequestLogger"
+      ]
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.3",
+    "orchestra/testbench": "^8.5",
+    "orchestra/testbench-browser-kit": "^8.2"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@php vendor/bin/testbench package:discover --ansi"
+    ]
+  },
+  "require": {
+    "php": "^8.1",
+    "illuminate/support": "^10"
+  }
+}

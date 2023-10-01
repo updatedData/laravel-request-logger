@@ -3,6 +3,7 @@
 namespace UpdatedData\LaravelRequestLogger\Tests\Housekeeping;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Queue;
 use UpdatedData\LaravelRequestLogger\Housekeeping\DeleteOldLogs;
 use UpdatedData\LaravelRequestLogger\Models\RequestLog;
 use UpdatedData\LaravelRequestLogger\Tests\TestCase;
@@ -11,6 +12,7 @@ class DeleteOldLogsTest extends TestCase
 {
     public function testHandle(): void
     {
+        Queue::fake();
         $logs = RequestLog::factory(5)->create([
             'created_at' => now()->subDay(),
         ]);
@@ -19,8 +21,8 @@ class DeleteOldLogsTest extends TestCase
         $first->created_at = now()->addDay();
         $first->save();
         Config::set('request-logger.storage.retention', 1);
-        $deleteOldLogs = new DeleteOldLogs();
-        $deleteOldLogs->handle();
+        dispatch(new DeleteOldLogs());
+        Queue::assertPushed(DeleteOldLogs::class);
         $this->assertEquals(1, RequestLog::all()->count());
     }
 }

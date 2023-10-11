@@ -16,7 +16,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "UpdatedData\\LaravelRequestLoggerServiceProvider"
+        "UpdatedData\\LaravelRequestLogger\\LaravelRequestLoggerServiceProvider"
       ]
     }
   },

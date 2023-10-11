@@ -26,3 +26,6 @@ All variables can either be set as ENV vars or in ``config/request-logger.php``
 |   REQUEST_LOGGER_COMPRESSION_ENABLED   | false    | Enables compression for uploaded files.                            |
 |  REQUEST_LOGGER_COMPRESSION_COMPRESSOR    | gz       | Compressionalgorith. For now only gz is supported                  |
 
+### Security notice
+
+Logging files should only be enabled for specific endpoints. Yet that feature is not implemented
